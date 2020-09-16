@@ -16,6 +16,8 @@ import {
 } from "@material-ui/core";
 import "leaflet/dist/leaflet.css";
 import { StyledApp } from "./styles";
+import { prettyPrint } from './util'
+
 
 function App() {
   const [countries, setcountries] = useState([]);
@@ -23,9 +25,8 @@ function App() {
   const [casesInfo, setcasesInfo] = useState();
   const [tableData, setTableData] = useState([]);
   const [mapZoom, setMapZoom] = useState(3);
-  const [mapCenter, setMapCenter] = 
-  useState({ lat: 34.80746, lng: -40.4796 });
-  
+  const [mapCenter, setMapCenter] = useState([34.80746, -40.4796]);
+  const [mapCountries, setmapCountries] = useState();
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
       .then((response) => response.json())
@@ -49,7 +50,7 @@ function App() {
           };
 
           const tableSortedData = sortedData(data);
-
+          setmapCountries(data);
           setTableData(tableSortedData);
           setcountries(countries);
         });
@@ -68,7 +69,12 @@ function App() {
 
     await fetch(url)
       .then((response) => response.json())
-      .then((data) => setcasesInfo(data));
+      .then((data) => {
+        setcasesInfo(data);
+
+        setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
+        setMapZoom(4);
+      });
   };
 
   return (
@@ -95,22 +101,22 @@ function App() {
         <div className="app__stats">
           <CasesBox
             title="Cases"
-            cases={casesInfo?.todayCases}
-            total={casesInfo?.cases}
+            cases={casesInfo?.todayCases === 0 & casesInfo?.todayRecovered === 0 & casesInfo?.todayDeaths === 0  ? <p>Not Updated Yet</p> : prettyPrint(casesInfo?.todayCases)}
+            total={prettyPrint(casesInfo?.cases)}
           />
           <CasesBox
-            title="Recoved"
-            cases={casesInfo?.todayRecovered}
-            total={casesInfo?.recovered}
+            title="Recovered"
+            cases={casesInfo?.todayCases === 0 & casesInfo?.todayRecovered === 0 & casesInfo?.todayDeaths === 0 ? <p>Not Updated Yet</p> : prettyPrint(casesInfo?.todayRecovered)}
+            total={prettyPrint(casesInfo?.recovered)}
           />
           <CasesBox
             title="Death"
-            cases={casesInfo?.todayDeaths}
-            total={casesInfo?.deaths}
+            cases={casesInfo?.todayCases === 0 & casesInfo?.todayRecovered === 0 & casesInfo?.todayDeaths === 0 ? <p>Not Updated Yet</p> : prettyPrint(casesInfo?.todayDeaths)}
+            total={prettyPrint(casesInfo?.deaths)}
           />
         </div>
 
-        <Map center={mapCenter} zoom={mapZoom} />
+        <Map countries={mapCountries} center={mapCenter} zoom={mapZoom} />
       </div>
       <Card className="app__right">
         <CardContent>
@@ -125,3 +131,4 @@ function App() {
 }
 
 export default App;
+ 

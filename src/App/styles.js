@@ -5,7 +5,7 @@ export const StyledApp = styled.div`
   justify-content: space-evenly;
   padding: 20px;
 
-  @media (max-width: 990px){
+  @media (max-width: 990px) {
     flex-direction: column;
   }
 
@@ -22,10 +22,26 @@ export const StyledApp = styled.div`
     align-items: center;
     margin-bottom: 20px;
     justify-content: space-between;
+    @media (max-width: 400px) {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 
+  .app__head {
+    color: orangered;
+    @media (max-width: 400px) {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+  }
   .app__stats {
     display: flex;
     justify-content: space-between;
+
+    @media (max-width: 400px) {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 `;
