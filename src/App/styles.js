@@ -22,7 +22,7 @@ export const StyledApp = styled.div`
     align-items: center;
     margin-bottom: 20px;
     justify-content: space-between;
-    @media (max-width: 400px) {
+    @media (max-width: 500px) {
       flex-direction: column;
       align-items: center;
     }
@@ -30,7 +30,7 @@ export const StyledApp = styled.div`
 
   .app__head {
     color: orangered;
-    @media (max-width: 400px) {
+    @media (max-width: 500px) {
       font-size: 1.4rem;
       margin-bottom: 10px;
     }
@@ -39,7 +39,7 @@ export const StyledApp = styled.div`
     display: flex;
     justify-content: space-between;
 
-    @media (max-width: 400px) {
+    @media (max-width: 500px) {
       flex-direction: column;
       align-items: center;
     }

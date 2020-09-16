@@ -3,12 +3,12 @@ import styled from "styled-components";
 export const StyledCasesBox = styled.div`
   flex: 1;
 
-  @media (max-width: 400px) {
+  @media (max-width: 500px) {
      width: 250px;
     }
   &:not(:last-child) {
     margin-right: 15px;
-    @media (max-width: 400px) {
+    @media (max-width: 500px) {
       margin-right: 0;
       margin-bottom: 10px;
     }

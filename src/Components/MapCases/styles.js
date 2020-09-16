@@ -8,7 +8,7 @@ export const StyledMap = styled.div`
   margin-top: 16px;
   box-shadow: 0 0 8px -4px rgba(0, 0, 0, 0.5);
   
-  @media (max-width: 400px) {
+  @media (max-width: 500px) {
     height: 300px;
     margin-bottom: 16px;
   }
